@@ -1,9 +1,9 @@
 from Paciente import Paciente
 class Habitual(Paciente):
-    def __init__(self, nombre, rut, telefono, correo, tipo_paciente, info_prevision, ficha_atenciom):
+    def __init__(self, nombre, rut, telefono, correo, tipo_paciente, info_prevision, ficha_atencion):
         super().__init__(nombre, rut, telefono, correo, tipo_paciente)
         self._info_prevision = info_prevision
-        self._ficha_atencion = ficha_atenciom
+        self._ficha_atencion = ficha_atencion
     
     def get_info_prevision(self):
         return self._info_prevision
