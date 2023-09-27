@@ -17,12 +17,13 @@ class NoHabitual(Paciente):
     def set_ultimo_medico(self, ultimo_medico):
         self._ultimo_medico = ultimo_medico
     
-    def __str__(self):
-        return super().__str__() + f", Diagnóstico: {self.get_diagnostico()}, Último médico que lo atendió: {self.get_ultimo_medico()}"
-
+    def mostrar_nohabitual(self):
+        print("\n-----Informacion del paciente -----")
+        print(super().__str__())
+        print(f"Diagnóstico: {self.get_diagnostico()}")
+        print(Medico.__str__(self.get_ultimo_medico()[0]))
     
-    
-    def crear_no_habitual(lista_medico):
+    def crear_no_habitual(lista_medico,pacientes):
         nombre = input("Ingrese el nombre del paciente: ")
         rut = input("Ingrese el RUT del paciente: ")
         while verificar(rut)==False:
@@ -31,21 +32,10 @@ class NoHabitual(Paciente):
         correo = input("Ingrese el correo del paciente: ")
         diagnostico = input("Ingrese el diagnóstico del paciente: ")
         #escoje ultimo medico
-        ultimo_medico=""
-        print("----- Medicos ------")
-        for index, a in enumerate(lista_medico):
-            print(f"[{index}] {a}")
-        if len(lista_medico)>1:
-            op=int(input("Ingrese el nombre del último médico que lo atendió:"))
-            while op>len(lista_medico) or op<0:
-                op=int(input("----Valor invalido----\nIngrese una opcion: "))
-            ultimo_medico= (lista_medico[op])
-        else: 
-            ultimo_medico,_ = Medico.Crear_medico()
-            lista_medico.append(ultimo_medico)
+        ultimo_medico, lista_medico = Medico.asignar_medico(lista_medico)
+        no_habitual = NoHabitual(nombre, rut, telefono, correo, "No Habitual",diagnostico, ultimo_medico)
+        pacientes.append(no_habitual)
 
-
-        no_habitual = NoHabitual(nombre, rut, telefono, correo, NoHabitual,diagnostico, ultimo_medico)
-
-        return no_habitual, lista_medico
+        NoHabitual.mostrar_nohabitual(no_habitual)
         
+        return lista_medico,pacientes

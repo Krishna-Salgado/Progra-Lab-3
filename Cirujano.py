@@ -30,11 +30,9 @@ class Cirujano(Medico):
         p,pp=Medico.__str__(self)
         print( p ,pp, f"- Operaciones realizadas: {self.get_operaciones()}\nEnfermeras: {self.get_enfermeras()}\nAnestesistas: {self.get_anestesistas()}")
     
-    def Crear_Cirujano(medico):
-        operaciones= input("Ingrese cantidad de operaciones realizadas: ")
-        anestesistas=[]
-        enfermeras= []
+    def asignar_anestesista(medico):
         #agrgar anestesistas
+        anestesistas_asignadas= medico.get_anestesistas()
         flag = True
         while flag:
             print("----- Anestesistas -----")
@@ -43,11 +41,19 @@ class Cirujano(Medico):
             op=int(input("Ingrese una opcion: "))
             while op>len(lista_anestesistas) or op<0:
                 op=int(input("----Valor invalido----\nIngrese una opcion: "))
-            anestesistas.append(lista_anestesistas[op])
+
+            #se agregan los anestesistas a la lista
+            anestesistas_asignadas.append(lista_anestesistas[op])
+            
             op=int(input("Quiere asignar otro anestesista a este medico? [1] Si [2] No"))
             if op ==2:
                 flag = False
-        #agregar enfermeras
+        medico.set_anestesistas(anestesistas_asignadas)
+        return medico
+    
+
+    def asignar_enfermeras(medico):
+        enfermeras_asignadas=medico.get_enfermeras()
         flag = True
         while flag:
             print("----- Enfermeras ------")
@@ -56,10 +62,23 @@ class Cirujano(Medico):
             op=int(input("Ingrese una opcion: "))
             while op>len(lista_enfermeras) or op<0:
                 op=int(input("----Valor invalido----\nIngrese una opcion: "))
-            enfermeras.append(lista_enfermeras[op])
+            enfermeras_asignadas.append(lista_enfermeras[op])
             op=int(input("Quiere asignar otra enfermera a este medico? [1] Si [2] No"))
             if op ==2:
                 flag = False
+        medico.set_enfermeras(enfermeras_asignadas)
+        return medico
+    
+    def agregar_operacion(medico):
+        operaciones=medico.get_operaciones()
+        medico.set_operaciones(operaciones+1)
+        return medico
+
+    def Crear_Cirujano(medico):
+        operaciones= int(input("Ingrese cantidad de operaciones realizadas: "))
+        anestesistas=[]
+        enfermeras= []
+
         nombre=medico.get_nombre()
         rut= medico.get_rut() 
         telefono= medico.get_telefono()
@@ -67,5 +86,11 @@ class Cirujano(Medico):
         especialidad=medico.get_especialidad()
 
         cirujano= Cirujano(nombre,rut, telefono, correo,especialidad,operaciones,anestesistas,enfermeras)
+
+        #agregar anestesistas
+        anestesistas= Cirujano.asignar_anestesista(anestesistas)
+        #agregar enfermeras
+        enfermeras= Cirujano.asignar_enfermeras(enfermeras)
+
         cirujano.__str__()
         return cirujano
