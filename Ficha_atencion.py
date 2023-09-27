@@ -27,16 +27,16 @@ class Ficha_atencion():
 
     def crear_ficha(lista_medicos):
         nombre = input("Ingrese el medico a cargo: ")
-        while Medico.verificar_medico(nombre, lista_medicos)==False:
+        bool, lista_medicos= Medico.verificar_medico(nombre, lista_medicos)
+        while bool==False:
             nombre = input("Ingrese el medico a cargo: ")
-        #sino exustese crea
 
         fecha_atencion = input("Ingrese la fecha de atencion: ")
         diagnostico = input("Ingrese el diagnostico: ")
         valor = input("Ingrese el valor de la atencion: ")
         ficha = Ficha_atencion(nombre, fecha_atencion, diagnostico, valor)
-        m = Ficha_atencion.__str__(Ficha_atencion)
-        return ficha, m
+        mostrar = Ficha_atencion.__str__(Ficha_atencion)
+        return ficha, mostrar
 
 
     def __str__(self):

@@ -60,37 +60,12 @@ def main_menu(lista_medicos,lista_pacientes):
             for i in lista_pacientes:
                 print(i)   
 
-        elif opcion == 5:
-            pass
+        elif opcion == 5: #ficha 
+            for i in lista_pacientes:
+                registro=Habitual.get_ficha_atencion(i)
+                for j in registro:
+                    Ficha_atencion.__str__(j)
         elif opcion == 0:
             print("¡Hasta luego!")
 
 main_menu(lista_medicos,lista_pacientes)
-"""
-print("wena")
-#opcion crear medico
-medicos,opera=Medico.Crear_medico(lista_medicos)
-medico=medicos[-1]
-if opera==True:
-    medico=Cirujano.Crear_Cirujano(medico)
-
-print("aaaaaa")
-for i in lista_medicos:
-    print(i)
-"""
-#lista_medico,pacientes= NoHabitual.crear_no_habitual(lista_medicos,lista_pacientes)
-#paciente=pacientes[-1]
-#NoHabitual.__str__(paciente)
-#h= Habitual.crear_habitual(lista_pacientes, lista_medicos)
-#Habitual.__str__(h[-1])
-
-#print("pueba verificar")
-#medico= Medico("pepito","123","890","gamil","cardiologo")
-#lista_medicos.append(medico)
-#Medico.verificar_nombre_medico("juan",lista_medicos)
-#print("buscando al pepito")
-#Medico.verificar_nombre_medico("pepito",lista_medicos)
-#
-#for i in lista_medicos:
-#    i.__str__()
-#print("seacabo")

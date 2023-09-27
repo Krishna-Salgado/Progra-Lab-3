@@ -6,16 +6,16 @@ class Habitual(Paciente):
     def __init__(self, nombre, rut, telefono, correo, tipo_paciente, info_prevision, ficha_atencion=[]):
         super().__init__(nombre, rut, telefono, correo, tipo_paciente)
         self._info_prevision = info_prevision
-        self._ficha_atencion = ficha_atencion or []
+        self._ficha_atencion = ficha_atencion
     #Geterseter
     def get_info_prevision(self):
         return self._info_prevision
     def set_info_prevision(self, info_prevision):
         self._info_prevision = info_prevision
     def set_ficha_atencion(self, ficha):
-        self.ficha_atencion.append(ficha)
+        self._ficha_atencion = ficha
     def get_ficha_atencion(self):
-        return self.ficha_atencion
+        return self._ficha_atencion
     
     #metodos
     def __str__(self):
@@ -40,10 +40,10 @@ class Habitual(Paciente):
         return pacientes #retorna una lista d elos pacientes
     
     def agregar_ficha(self, medicos):    #crear la ficha y agregar a registro(lista), se retorna registo 
-        ficha_atencion = Ficha_atencion.crear_ficha(medicos)
-        ficha, m = ficha_atencion
-        self.get_ficha_atencion.append(ficha)
-        return m
+        ficha, mostrar= Ficha_atencion.crear_ficha(medicos)
+         
+        self.set_ficha_atencion(self.get_ficha_atencion().append(ficha))
+        return mostrar
         #self._ficha_atencion.append(ficha_atencion)
         
         
