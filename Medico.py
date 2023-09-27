@@ -14,14 +14,17 @@ class Medico(Persona):
     #Metodos
     def __str__(self):
         print("----- Datos del medico ------")
-        return super().__str__() +f"\nEspecialidad: {self.get_especialidad()}\n-------------\n"
+        return super().__str__() +f"\nEspecialidad: {self.get_especialidad()}"
     
     def Crear_medico(lista_medicos):
         nombre = input("Ingrese el nombre del medico: ")
-        rut = input("Ingrese el rut: ")
-        while verificar(rut)==False:
+        try:
+            rut = input("Ingrese el rut: ")
+            while verificar(rut)==False:
+                rut = input("Rut invalido, ingrese nuevamente: ")
+        except ValueError:
             rut = input("Rut invalido, ingrese nuevamente: ")
-        
+            
         telefono = input("Ingrese el numero telefonico: ")
         correo = input("Ingrese el correo electronico: ")
         especialidad= input("Ingrese la especialidad: ")
@@ -49,14 +52,19 @@ class Medico(Persona):
                 return False, lista
         
     def asignar_medico(lista_medico):
-        print("----- Medicos ------")
         for index, a in enumerate(lista_medico):
             print(f"[{index}] {a}")
-        if len(lista_medico)>1:
-            op=int(input("Ingrese el nombre del último médico que lo atendió:"))
+        print(f"[{len(lista_medico)}] Agregar nuevo medico")
+        if len(lista_medico)>=1:
+            op=int(input("Ingrese el numero del último médico que lo atendió:"))
             while op>len(lista_medico) or op<0:
                 op=int(input("----Valor invalido----\nIngrese una opcion: "))
-            ultimo_medico= (lista_medico[op])
+            if op ==len(lista_medico):
+                lista_medico,_ = Medico.Crear_medico(lista_medico)
+                ultimo_medico=lista_medico[-1]
+                lista_medico.append(ultimo_medico)
+            else:
+                ultimo_medico= (lista_medico[op])
         else: 
             print("No hay medicos disponible, ingresa los datos del nuevo medico")
             ultimo_medico,_ = Medico.Crear_medico(lista_medico)

@@ -21,7 +21,9 @@ class Habitual(Paciente):
     def __str__(self):
         print("datos de habitual")
         print(super().__str__())
-        return  f"\nInformación de previsión: {self.get_info_prevision() }"
+        print(f"\nInformación de previsión: {self.get_info_prevision() }")
+        for i in self.get_ficha_atencion():
+            print(i)
 
     
     def crear_habitual(pacientes,medicos):
@@ -31,17 +33,17 @@ class Habitual(Paciente):
         correo = input("Ingrese el correo del paciente habitual: ")
         info_prevision = input("Ingrese la información de previsión del paciente habitual: ")
         #agregar fichaaaaaaaaa
-        #ficha_atencion=Habitual.agregar_ficha()
-        ficha_atencion=""
+        ficha_atencion=Habitual.agregar_ficha(Habitual, medicos)
         paciente= Habitual(nombre, rut, telefono, correo, "Habitual", info_prevision, ficha_atencion)
         paciente.agregar_ficha(medicos)
         pacientes.append(paciente)#el paciente esta en la pos -1 de la lista
         return pacientes #retorna una lista d elos pacientes
     
-    def agregar_ficha(self, medicos):    #crear la ficha y agregar a registro(lista), se retorna registo
-        
+    def agregar_ficha(self, medicos):    #crear la ficha y agregar a registro(lista), se retorna registo 
         ficha_atencion = Ficha_atencion.crear_ficha(medicos)
-        self.set_ficha_atencion(self.get_ficha_atencion.append(ficha_atencion))
+        ficha, m = ficha_atencion
+        self.get_ficha_atencion.append(ficha)
+        return m
         #self._ficha_atencion.append(ficha_atencion)
         
         
@@ -52,7 +54,7 @@ class Habitual(Paciente):
         correo=self.get_correo()
         telefono=self.get_telefono()
         diagnostico= NoHabitual.get_diagnostico(self)
-        medico= NoHabitual.get_ultimo_medico()
+        medico= NoHabitual.get_ultimo_medico(self)
         tipo="Habitual"
         info_prevision = input("Ingrese la información de previsión del paciente habitual: ")
         ficha_atencion = Ficha_atencion(medico,"None",diagnostico,"None")

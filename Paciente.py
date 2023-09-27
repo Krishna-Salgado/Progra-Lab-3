@@ -17,3 +17,9 @@ class Paciente(Persona):
         if self.tipo_paciente.lower() == "No Habitual".lower():
             #Se puede realizar cambio de Clase
             return True
+        
+    def verificar_existencia(lista,rut):
+        for i in lista:
+            if Persona.get_rut(i)==rut:
+                return True
+            else: False

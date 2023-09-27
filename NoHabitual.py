@@ -1,6 +1,7 @@
 from Paciente import Paciente
 from Verificar_Rut import Verificar_rut as verificar
 from Medico import Medico
+
 class NoHabitual(Paciente):
     def __init__(self, nombre, rut, telefono, correo, tipo_paciente, diagnostico, ultimo_medico):
         super().__init__(nombre, rut, telefono, correo, tipo_paciente)
@@ -21,12 +22,15 @@ class NoHabitual(Paciente):
         print("\n-----Informacion del paciente -----")
         print(super().__str__())
         print(f"Diagnóstico: {self.get_diagnostico()}")
-        print(Medico.__str__(self.get_ultimo_medico()[0]))
+        print(Medico.__str__(self.get_ultimo_medico()))
     
     def crear_no_habitual(lista_medico,pacientes):
         nombre = input("Ingrese el nombre del paciente: ")
-        rut = input("Ingrese el RUT del paciente: ")
-        while verificar(rut)==False:
+        try:
+            rut = input("Ingrese el RUT del paciente: ")
+            while verificar(rut)==False:
+                rut = input("Rut invalido, ingrese nuevamente: ")
+        except ValueError:
             rut = input("Rut invalido, ingrese nuevamente: ")
         telefono = input("Ingrese el teléfono del paciente: ")
         correo = input("Ingrese el correo del paciente: ")
@@ -34,8 +38,10 @@ class NoHabitual(Paciente):
         #escoje ultimo medico
         ultimo_medico, lista_medico = Medico.asignar_medico(lista_medico)
         no_habitual = NoHabitual(nombre, rut, telefono, correo, "No Habitual",diagnostico, ultimo_medico)
+
+        existe= Paciente.verificar_existencia(pacientes,rut)
         pacientes.append(no_habitual)
 
         NoHabitual.mostrar_nohabitual(no_habitual)
         
-        return lista_medico,pacientes
+        return lista_medico,pacientes, existe

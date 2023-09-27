@@ -35,11 +35,14 @@ class Ficha_atencion():
         diagnostico = input("Ingrese el diagnostico: ")
         valor = input("Ingrese el valor de la atencion: ")
         ficha = Ficha_atencion(nombre, fecha_atencion, diagnostico, valor)
-        return ficha
+        m = Ficha_atencion.__str__(Ficha_atencion)
+        return ficha, m
 
 
     def __str__(self):
-        return f"Medico a cargo: \n{Medico.__str__(self.get_medico())} \nDiagnostico: {self.get_diagnostico()}, Fecha de atencion: {self.get_fecha_atencion()}\nValor: {self.get_valor()}"
+        print("-Ficha de atencion-")
+        print("Medico a cargo:", Medico.__str__(self.get_medico()))
+        return f"\nDiagnostico: {self.get_diagnostico()}, Fecha de atencion: {self.get_fecha_atencion()}\nValor: {self.get_valor()}"
 
 
 #Falta crear. str
